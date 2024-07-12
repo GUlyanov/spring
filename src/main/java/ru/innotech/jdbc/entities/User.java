@@ -1,4 +1,4 @@
-package ru.innotech.jdbc.entity;
+package ru.innotech.jdbc.entities;
 import java.util.Objects;
 
 public class User {

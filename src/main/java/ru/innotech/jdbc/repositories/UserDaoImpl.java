@@ -1,8 +1,7 @@
-package ru.innotech.jdbc.dao;
+package ru.innotech.jdbc.repositories;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.innotech.jdbc.entity.User;
+import ru.innotech.jdbc.entities.User;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -11,12 +10,16 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static ru.innotech.jdbc.dao.QueryConstants.*;
+import static ru.innotech.jdbc.repositories.QueryConstants.*;
 
 @Repository("userDao")
 public class UserDaoImpl implements UserDao {
-    @Autowired
-    private DataSource dataSource;
+
+    private final DataSource dataSource;
+
+    public UserDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public Set<User> findAll() {
@@ -37,7 +40,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User insert(User user) {
+    public void insert(User user) {
         try ( var connection = dataSource.getConnection();
             var statement = connection.prepareStatement(SIMPLE_INSERT, Statement.RETURN_GENERATED_KEYS)){
             statement.setString(1, user.getUserName());
@@ -46,7 +49,6 @@ public class UserDaoImpl implements UserDao {
             if (generatedKeys.next()) {
                 user.setId(generatedKeys.getLong(1));
             }
-            return user;
         } catch (SQLException ex) {
             throw new RuntimeException("Проблема при выполнении INSERT: " + ex.getMessage());
         }

@@ -3,10 +3,9 @@ package ru.innotech.jdbc;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.test.context.jdbc.Sql;
 import ru.innotech.jdbc.config.AppConfig;
-import ru.innotech.jdbc.entity.User;
-import ru.innotech.jdbc.service.UserService;
+import ru.innotech.jdbc.entities.User;
+import ru.innotech.jdbc.servicies.UserService;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

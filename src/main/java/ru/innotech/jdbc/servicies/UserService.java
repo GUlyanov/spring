@@ -1,17 +1,20 @@
-package ru.innotech.jdbc.service;
+package ru.innotech.jdbc.servicies;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.innotech.jdbc.entity.User;
-import ru.innotech.jdbc.dao.UserDao;
+import ru.innotech.jdbc.entities.User;
+import ru.innotech.jdbc.repositories.UserDao;
 
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserDao userDao;
+
+    private final UserDao userDao;
+
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public Set<User> findAll(){
         return userDao.findAll();
@@ -25,8 +28,8 @@ public class UserService {
         return userDao.findById(id);
     }
 
-    public User insert(User user){
-        return userDao.insert(user);
+    public void insert(User user){
+        userDao.insert(user);
     }
 
     public void update(User user){

@@ -1,4 +1,4 @@
-package ru.innotech.jdbc.dao;
+package ru.innotech.jdbc.repositories;
 
 public enum QueryConstants {
     ;
