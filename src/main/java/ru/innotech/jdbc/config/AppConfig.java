@@ -5,9 +5,11 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 
 @Configuration
 @PropertySource("classpath:db/jdbc.properties")
@@ -37,6 +39,15 @@ public class AppConfig {
             return dataSource;
         } catch (Exception e) {
             throw new RuntimeException("Hikari DataSource бин не создан: " + e.getMessage());
+        }
+    }
+
+    @Bean @DependsOn("dataSource")
+    public Connection getConnection(){
+        try {
+            return dataSource().getConnection();
+        } catch (Exception e) {
+            throw new RuntimeException("Соединение с базой не создано: " + e.getMessage());
         }
     }
 }

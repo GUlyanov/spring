@@ -1,46 +1,17 @@
 package ru.innotech.jdbc.servicies;
 
-import org.springframework.stereotype.Service;
 import ru.innotech.jdbc.entities.User;
-import ru.innotech.jdbc.repositories.UserDao;
 
 import java.util.Optional;
 import java.util.Set;
 
-@Service
-public class UserService {
-
-    private final UserDao userDao;
-
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    public Set<User> findAll(){
-        return userDao.findAll();
-    }
-
-    public Set<User> findByName(String userName){
-        return userDao.findByName(userName);
-    }
-
-    public Optional<User> findById(Long id){
-        return userDao.findById(id);
-    }
-
-    public void insert(User user){
-        userDao.insert(user);
-    }
-
-    public void update(User user){
-        userDao.update(user);
-    }
-
-    public void delete(Long id){
-        userDao.delete(id);
-    }
-    public void deleteAll(){
-        userDao.deleteAll();
-    }
-
+public interface UserService {
+    public Set<User> findAll();
+    public Set<User> findByName(String userName);
+    public Optional<User> findById(Long id);
+    public void insert(User user);
+    public void update(User user);
+    public void delete(User user);
+    public void delete(Long userId);
+    public void deleteAll();
 }
