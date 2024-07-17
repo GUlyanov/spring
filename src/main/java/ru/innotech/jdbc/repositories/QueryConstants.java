@@ -10,7 +10,7 @@ public enum QueryConstants {
     public static final String FIND_USER_BY_NAME = "select * from USERS where username = ?";
     public static final String FIND_USER_BY_ID = "select * from USERS where id = ?";
     public static final String FIND_PRODUCTS_BY_USER_ID = "select * from PRODUCTS where userId = ?";
-    public static final String FIND_PRODUCT_BY_ID = "select id from PRODUCTS where id = ?";
+    public static final String FIND_PRODUCT_BY_ID = "select accnumber, accrest, prodtype from PRODUCTS where id = ?";
     public static final String INSERT_PRODUCT = "insert into PRODUCTS (accnumber, accrest, prodtype, userid) values (?, ?, ?, ?)";
     public static final String UPDATE_PRODUCT = "update PRODUCTS set accnumber = ?, accrest = ?, prodtype = ? where id = ?";
     public static final String DELETE_PRODUCT = "delete from PRODUCTS where id = ?";

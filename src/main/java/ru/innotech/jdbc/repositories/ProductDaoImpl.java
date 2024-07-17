@@ -3,9 +3,6 @@ package ru.innotech.jdbc.repositories;
 import org.springframework.stereotype.Repository;
 import ru.innotech.jdbc.entities.Product;
 import ru.innotech.jdbc.entities.ProductType;
-import ru.innotech.jdbc.entities.User;
-
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

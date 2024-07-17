@@ -1,6 +1,5 @@
 package ru.innotech.jdbc;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.innotech.jdbc.entities.Product;
 import ru.innotech.jdbc.entities.ProductType;
 import ru.innotech.jdbc.entities.User;

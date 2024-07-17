@@ -14,9 +14,14 @@ public class Product {
     public Product() {
     }
 
-    public Product(String accNumber, BigDecimal accRest, ProductType prodType) {
+    public Product(Long id, String accNumber, BigDecimal accRest, ProductType prodType) {
+        this.id = id;
         this.accNumber = accNumber;
         this.accRest = accRest;
         this.prodType = prodType;
+    }
+
+    public Product(String accNumber, BigDecimal accRest, ProductType prodType) {
+        this(null, accNumber, accRest, prodType);
     }
 }

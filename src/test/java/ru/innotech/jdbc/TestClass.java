@@ -1,34 +1,21 @@
 package ru.innotech.jdbc;
 
-import org.flywaydb.core.Flyway;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import ru.innotech.jdbc.config.AppConfig;
 import ru.innotech.jdbc.entities.Product;
-import ru.innotech.jdbc.entities.ProductType;
 import ru.innotech.jdbc.entities.User;
 import ru.innotech.jdbc.servicies.ProductService;
 import ru.innotech.jdbc.servicies.UserService;
-import ru.innotech.jdbc.servicies.UserServiceImpl;
 
-import javax.sql.DataSource;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@SpringJUnitConfig
 public class TestClass {
     @Autowired
     Connection connection;
@@ -46,12 +33,10 @@ public class TestClass {
 
     @Test
     @DisplayName("2. Проверка сохранения пользователей в базу")
-    @Sql({"classpath:/ins_data.sql"})
     public void TestIns() {
         assertNotNull(userService, "Сервис пользователей не создан");
         // Создание пользователей и вставка их в базу
-
-        //List<User> lstUser = TestUtils.loadUsers(true, true);
+        TestUtils.loadUsers(true, true, userService);
         // Извлечение всех пользователей из базы
         Set<User> userSet = userService.findAll();
         assertEquals(3, userSet.size(), "В базе не найдены пользователи");
@@ -72,7 +57,7 @@ public class TestClass {
     public void TestUpd() {
         assertNotNull(userService, "Источник данных не создан");
         // Создание пользователей и сохранение их в базу
-        //List<User> lstUser =TestUtils.loadUsers(true, true);
+        TestUtils.loadUsers(true, true, userService);
 
         // Найти пользователя по имени
         Set<User> userSet = userService.findByName("Сидоров П.Т.");

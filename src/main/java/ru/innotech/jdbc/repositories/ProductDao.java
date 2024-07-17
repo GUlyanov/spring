@@ -1,8 +1,6 @@
 package ru.innotech.jdbc.repositories;
 
 import ru.innotech.jdbc.entities.Product;
-import ru.innotech.jdbc.entities.User;
-
 import java.util.Optional;
 import java.util.Set;
 

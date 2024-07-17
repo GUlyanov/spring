@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ProductsDto {
+    public Set<ProductDto> getProductDtoSet() {
+        return productDtoSet;
+    }
+
     private Set<ProductDto> productDtoSet = new HashSet<>();
 
     public ProductsDto() {
@@ -22,7 +26,5 @@ public class ProductsDto {
     public void addProductDto(ProductDto productDto){
         productDtoSet.add(productDto);
     }
-    public void delProductDto(ProductDto productDto){
-        productDtoSet.remove(productDto);
-    }
+
 }

@@ -5,7 +5,6 @@ import ru.innotech.jdbc.entities.Product;
 import ru.innotech.jdbc.entities.User;
 import ru.innotech.jdbc.exceptions.UserByIdNotFoundException;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
