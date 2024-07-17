@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUtils {
 
-    public static List<User> loadUsers(boolean bIns, boolean bClear, UserService userService){
+    public static void loadUsers(boolean bIns, boolean bClear, UserService userService){
         List<User> lstUsers = new ArrayList<>();
         User user = new User("Иванов Г.В.");
         user.addProduct(new Product("40702810312345678901", BigDecimal.valueOf(2160.30), ProductType.ACCOUNT));
@@ -40,10 +40,9 @@ public class TestUtils {
                 userService.insert(userOne);
             }
         }
-        return lstUsers;
     }
 
-    public static void testConnection(Connection connection) throws SQLException {
+    public static void testConnection(Connection connection) {
         try (var statement = connection.prepareStatement("SELECT 1 val");
              var resultSet = statement.executeQuery()){
             while (resultSet.next()) {

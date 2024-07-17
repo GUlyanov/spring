@@ -35,7 +35,6 @@ public class ProductController {
     @GetMapping("/products/{userId}")
     public ProductsDto productsByUserId(@PathVariable Long userId) {
         Set<Product> products = productService.getProductsByUserId(userId);
-        ProductsDto productsDto = new ProductsDto(products);
-        return productsDto;
+        return new ProductsDto(products);
     }
 }

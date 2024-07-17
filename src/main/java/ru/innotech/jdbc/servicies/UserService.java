@@ -6,12 +6,12 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface UserService {
-    public Set<User> findAll();
-    public Set<User> findByName(String userName);
-    public Optional<User> findById(Long id);
-    public void insert(User user);
-    public void update(User user);
-    public void delete(User user);
-    public void delete(Long userId);
-    public void deleteAll();
+    Set<User> findAll();
+    Set<User> findByName(String userName);
+    Optional<User> findById(Long id);
+    void insert(User user);
+    void update(User user);
+    void delete(User user);
+    void delete(Long userId);
+    void deleteAll();
 }

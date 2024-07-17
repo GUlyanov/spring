@@ -73,7 +73,7 @@ public class TestClass {
         // Найдем пользователя в базе по Id
         User userNew = userService.findById(idUser).orElse(null);
         assertNotNull(userNew, "Не найден пользователь по Id = "+idUser);
-        assertTrue(userNew.getUserName().equals("Петров А.И."), "Пользователь в базе не получил новое имя");
+        assertEquals("Петров А.И.", userNew.getUserName(), "Пользователь в базе не получил новое имя");
         // Удалим пользователя по Id
         userService.delete(idUser);
         // Проверим отстутствие пользователя в базе

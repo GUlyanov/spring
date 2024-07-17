@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface ProductDao {
-    public Set<Product> getProductsByUserId(Long userId);
-    public Optional<Product> getProductById(Long productId);
+    Set<Product> getProductsByUserId(Long userId);
+    Optional<Product> getProductById(Long productId);
     void insert(Product product, Long userId);
 
     void update(Product product);

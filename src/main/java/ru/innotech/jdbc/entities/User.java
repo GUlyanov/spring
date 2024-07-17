@@ -23,7 +23,4 @@ public class User {
     public void addProduct(Product product){
         productSet.add(product);
     }
-    public void delProduct(Product product){
-        productSet.remove(product);
-    }
 }

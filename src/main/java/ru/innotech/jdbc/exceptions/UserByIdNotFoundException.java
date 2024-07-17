@@ -1,5 +1,8 @@
 package ru.innotech.jdbc.exceptions;
 
+import lombok.Getter;
+
+@Getter
 public class UserByIdNotFoundException extends RuntimeException{
     private final Long userId;
 
@@ -8,7 +11,4 @@ public class UserByIdNotFoundException extends RuntimeException{
         this.userId = userId;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 }

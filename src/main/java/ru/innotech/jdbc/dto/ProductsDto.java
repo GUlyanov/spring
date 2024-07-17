@@ -1,14 +1,13 @@
 package ru.innotech.jdbc.dto;
 
+import lombok.Getter;
 import ru.innotech.jdbc.entities.Product;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
 public class ProductsDto {
-    public Set<ProductDto> getProductDtoSet() {
-        return productDtoSet;
-    }
 
     private Set<ProductDto> productDtoSet = new HashSet<>();
 

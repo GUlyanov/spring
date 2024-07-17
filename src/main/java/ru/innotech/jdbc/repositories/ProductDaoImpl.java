@@ -64,10 +64,10 @@ public class ProductDaoImpl implements ProductDao{
     @Override
     public void insert(Product product, Long userId) {
         try ( var statement = connection.prepareStatement(INSERT_PRODUCT, Statement.RETURN_GENERATED_KEYS)){
-            statement.setString(1, product.getAccNumber());;
-            statement.setBigDecimal(2, product.getAccRest());;
-            statement.setString(3, product.getProdType().toString());;
-            statement.setLong(4, userId);;
+            statement.setString(1, product.getAccNumber());
+            statement.setBigDecimal(2, product.getAccRest());
+            statement.setString(3, product.getProdType().toString());
+            statement.setLong(4, userId);
             statement.execute();
             var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -119,9 +119,9 @@ public class ProductDaoImpl implements ProductDao{
     @Override
     public void update(Product product) {
         try (var statement = connection.prepareStatement(UPDATE_PRODUCT)) {
-            statement.setString(1, product.getAccNumber());;
-            statement.setBigDecimal(2, product.getAccRest());;
-            statement.setString(3, product.getProdType().toString());;
+            statement.setString(1, product.getAccNumber());
+            statement.setBigDecimal(2, product.getAccRest());
+            statement.setString(3, product.getProdType().toString());
             statement.setLong(4, product.getId());
             statement.execute();
         } catch (SQLException ex) {

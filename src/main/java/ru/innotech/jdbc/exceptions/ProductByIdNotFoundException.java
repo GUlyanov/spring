@@ -1,5 +1,8 @@
 package ru.innotech.jdbc.exceptions;
 
+import lombok.Getter;
+
+@Getter
 public class ProductByIdNotFoundException extends RuntimeException{
     private final Long productId;
     public ProductByIdNotFoundException(String message, Long productId) {
@@ -7,7 +10,4 @@ public class ProductByIdNotFoundException extends RuntimeException{
         this.productId = productId;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
 }
