@@ -1,15 +1,11 @@
 package ru.innotech.jdbc;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Arrays;
-
-@ComponentScan("ru.innotech.jdbc")
+@SpringBootApplication
 public class Application {
     public static void main(String[] args) {
-        ApplicationContext ctx =  new AnnotationConfigApplicationContext(Application.class);
-        //Arrays.stream(ctx.getBeanDefinitionNames()).forEach(System.out::println);
+        SpringApplication.run(Application.class, args);
     }
 }

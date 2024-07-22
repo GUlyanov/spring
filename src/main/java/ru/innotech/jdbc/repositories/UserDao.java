@@ -1,6 +1,6 @@
-package ru.innotech.jdbc.dao;
+package ru.innotech.jdbc.repositories;
 
-import ru.innotech.jdbc.entity.User;
+import ru.innotech.jdbc.entities.User;
 
 import java.util.Optional;
 import java.util.Set;
@@ -12,11 +12,15 @@ public interface UserDao {
 
     Optional<User> findById(Long id);
 
-    User insert(User user);
+    void insert(User user);
 
     void update(User user);
 
-    void delete(Long id);
+    void delete(User user);
+
+    void delete(Long userId);
 
     void deleteAll();
+
+
 }
