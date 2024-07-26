@@ -1,8 +1,0 @@
-server:
-  port: 8282
-spring:
-  application:
-    name: app-jdbc
-  sql:
-    init:
-      mode: always
