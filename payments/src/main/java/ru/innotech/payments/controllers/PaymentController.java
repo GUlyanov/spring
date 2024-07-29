@@ -1,7 +1,8 @@
 package ru.innotech.payments.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import ru.innotech.dtos.dto.PaymentDto;
+import ru.innotech.dtos.dto.PaymentReqDto;
+import ru.innotech.dtos.dto.PaymentRespDto;
 import ru.innotech.dtos.dto.ProductsDto;
 import ru.innotech.payments.services.PaymentService;
 
@@ -21,11 +22,9 @@ public class PaymentController {
         return productService.getProductsByUserId(userId);
     }
 
-    @PostMapping("payments/user/{userId}/product/{productId}/sum/{sum}")
-    public PaymentDto doPayment(@PathVariable Long userId,
-                                @PathVariable Long productId,
-                                @PathVariable BigDecimal sum) {
-        return productService.doPayment(userId, productId, sum);
+    @PostMapping("payment")
+    public PaymentRespDto doPayment(@RequestBody PaymentReqDto payReqDto) {
+        return productService.doPayment(payReqDto);
     }
 
 

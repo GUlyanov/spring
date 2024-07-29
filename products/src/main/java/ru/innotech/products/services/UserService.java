@@ -1,4 +1,4 @@
-package ru.innotech.products.servicies;
+package ru.innotech.products.services;
 
 import ru.innotech.products.entities.User;
 

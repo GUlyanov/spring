@@ -1,6 +1,7 @@
-package ru.innotech.products.servicies;
+package ru.innotech.products.services;
 
-import ru.innotech.dtos.dto.PaymentDto;
+import ru.innotech.dtos.dto.PaymentReqDto;
+import ru.innotech.dtos.dto.PaymentRespDto;
 import ru.innotech.products.entities.Product;
 
 import java.math.BigDecimal;
@@ -23,6 +24,6 @@ public interface ProductService {
 
     Boolean productIsAccessed(Long userId, Long productId);
 
-    PaymentDto doPayment(Long userId, Long productId, BigDecimal sum);
+    PaymentRespDto doPayment(PaymentReqDto paymentReqDto);
 
 }

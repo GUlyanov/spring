@@ -3,7 +3,7 @@ package ru.innotech.jdbc;
 import ru.innotech.products.entities.Product;
 import ru.innotech.products.entities.ProductType;
 import ru.innotech.products.entities.User;
-import ru.innotech.products.servicies.UserService;
+import ru.innotech.products.services.UserService;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

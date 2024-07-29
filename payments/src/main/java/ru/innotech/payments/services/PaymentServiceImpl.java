@@ -1,24 +1,30 @@
 package ru.innotech.payments.services;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.innotech.dtos.dto.PaymentDto;
+import ru.innotech.dtos.dto.PaymentReqDto;
+import ru.innotech.dtos.dto.PaymentRespDto;
 import ru.innotech.dtos.dto.ProductsDto;
+import ru.innotech.payments.config.properties.ExecutorsProperties;
 
 import java.math.BigDecimal;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
-    @Value("${integrations.executors.products-executor-client.url}")
-    private String productsUrl;
 
+    //@Value("${integrations.executors.products-executor-client.url}")
+    private final String productsUrl;
     private final RestTemplate restTemplate;
 
-    public PaymentServiceImpl(RestTemplate restTemplate) {
+    public PaymentServiceImpl(ExecutorsProperties executorsProperties, RestTemplate restTemplate) {
+        productsUrl = executorsProperties.getProductsExecutorClient().getUrl();
         this.restTemplate = restTemplate;
     }
+
+    //public PaymentServiceImpl(RestTemplate restTemplate) {
+    //    this.restTemplate = restTemplate;
+    //}
 
     @Override
     public ProductsDto getProductsByUserId(Long userId) {
@@ -27,11 +33,9 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentDto doPayment(Long userId, Long productId, BigDecimal sum) {
-        String url = productsUrl + "/user/{userId}/product/{productId}/sum/{sum}";
-        //PaymentDto paymentDto = restTemplate.postForObject(url, null, PaymentDto.class, userId, productId, sum);
-        //return paymentDto;
-        ResponseEntity<PaymentDto> entity = restTemplate.postForEntity(url, null, PaymentDto.class, userId, productId, sum);
+    public PaymentRespDto doPayment(PaymentReqDto payReqDto) {
+        String url = productsUrl + "/payment";
+        ResponseEntity<PaymentRespDto> entity = restTemplate.postForEntity(url, payReqDto, PaymentRespDto.class);
         return entity.getBody();
     }
 }

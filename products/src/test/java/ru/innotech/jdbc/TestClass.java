@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.innotech.products.entities.Product;
 import ru.innotech.products.entities.User;
-import ru.innotech.products.servicies.ProductService;
-import ru.innotech.products.servicies.UserService;
+import ru.innotech.products.services.ProductService;
+import ru.innotech.products.services.UserService;
 
 import java.sql.Connection;
 import java.sql.SQLException;

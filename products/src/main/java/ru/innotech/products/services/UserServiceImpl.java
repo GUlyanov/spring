@@ -1,4 +1,4 @@
-package ru.innotech.products.servicies;
+package ru.innotech.products.services;
 
 import org.springframework.stereotype.Service;
 import ru.innotech.products.entities.User;

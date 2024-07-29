@@ -14,7 +14,7 @@ import ru.innotech.products.entities.Product;
 import ru.innotech.products.entities.ProductType;
 import ru.innotech.products.entities.User;
 import ru.innotech.products.exceptions.ProductByIdNotFoundException;
-import ru.innotech.products.servicies.ProductService;
+import ru.innotech.products.services.ProductService;
 
 import java.math.BigDecimal;
 

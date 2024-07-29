@@ -1,7 +1,8 @@
-package ru.innotech.products.servicies;
+package ru.innotech.products.services;
 
 import org.springframework.stereotype.Service;
-import ru.innotech.dtos.dto.PaymentDto;
+import ru.innotech.dtos.dto.PaymentReqDto;
+import ru.innotech.dtos.dto.PaymentRespDto;
 import ru.innotech.products.entities.Product;
 import ru.innotech.products.exceptions.ProductAccInsufficientFundsException;
 import ru.innotech.products.exceptions.ProductAccessDeniedException;
@@ -65,7 +66,11 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.productIsAccessed(userId, productId);
     }
 
-    public PaymentDto doPayment(Long userId, Long productId, BigDecimal sum) {
+    public PaymentRespDto doPayment(PaymentReqDto payReqDto) {
+        Long userId = payReqDto.getUserId();
+        Long productId = payReqDto.getProductId();
+        BigDecimal sum = payReqDto.getSum();
+
         // 1 Получить информацию по продукту на предмет авторизации
         Product product = getProductById(productId);
 
@@ -79,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
 
         // Проверка 3. Остаток на счете больше или равен сумме платежа
         BigDecimal rest = product.getAccRest();
-        if (rest == null || rest.compareTo(sum) == -1) {
+        if (rest == null || rest.compareTo(sum) < 0) {
             throw new ProductAccInsufficientFundsException(null, product.getId(), userId, rest);
         }
 
@@ -90,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
         productRepo.update(product);
 
         // Сформировать ответ
-        return new PaymentDto(userId, productId, sum, oldRest, newRest);
+        return new PaymentRespDto(userId, productId, sum, oldRest, newRest);
     }
 
 }
