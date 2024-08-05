@@ -8,12 +8,9 @@ import ru.innotech.dtos.dto.PaymentRespDto;
 import ru.innotech.dtos.dto.ProductsDto;
 import ru.innotech.payments.config.properties.ExecutorsProperties;
 
-import java.math.BigDecimal;
-
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    //@Value("${integrations.executors.products-executor-client.url}")
     private final String productsUrl;
     private final RestTemplate restTemplate;
 
@@ -21,10 +18,6 @@ public class PaymentServiceImpl implements PaymentService {
         productsUrl = executorsProperties.getProductsExecutorClient().getUrl();
         this.restTemplate = restTemplate;
     }
-
-    //public PaymentServiceImpl(RestTemplate restTemplate) {
-    //    this.restTemplate = restTemplate;
-    //}
 
     @Override
     public ProductsDto getProductsByUserId(Long userId) {

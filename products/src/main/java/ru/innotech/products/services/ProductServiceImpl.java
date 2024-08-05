@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.innotech.dtos.dto.PaymentReqDto;
 import ru.innotech.dtos.dto.PaymentRespDto;
 import ru.innotech.products.entities.Product;
+import ru.innotech.products.entities.User;
 import ru.innotech.products.exceptions.ProductAccInsufficientFundsException;
 import ru.innotech.products.exceptions.ProductAccessDeniedException;
 import ru.innotech.products.exceptions.ProductByIdNotFoundException;
@@ -18,32 +19,30 @@ import java.util.Set;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepo productRepo;
 
-    public ProductServiceImpl(ProductRepo productDao) {
-        this.productRepo = productDao;
+    public ProductServiceImpl(ProductRepo productRepo) {
+        this.productRepo = productRepo;
     }
 
     public Product getProductById(Long productId) {
-        Optional<Product> optionalProduct = productRepo.getProductById(productId);
+        Optional<Product> optionalProduct = productRepo.findById(productId);
         if (optionalProduct.isEmpty())
             throw new ProductByIdNotFoundException(null, productId);
         return optionalProduct.get();
     }
 
     public Set<Product> getProductsByUserId(Long userId) {
-        Set<Product> productSet = productRepo.getProductsByUserId(userId);
+        Set<Product> productSet = productRepo.findByUserId(userId);
         if (productSet.isEmpty())
             throw new ProductsByUserIdNotFoundException(null, userId);
         return productSet;
     }
 
-    @Override
-    public void insert(Product product, Long userId) {
-        productRepo.insert(product, userId);
-    }
-
-    @Override
-    public void update(Product product) {
-        productRepo.update(product);
+    public void save(Product product) {
+        User user = product.getUser();
+        if (user == null)
+            throw new RuntimeException("Не задан владелец продукта!");
+        user.addProduct(product);
+        productRepo.save(product);
     }
 
     @Override
@@ -92,7 +91,7 @@ public class ProductServiceImpl implements ProductService {
         BigDecimal oldRest = product.getAccRest();
         BigDecimal newRest = rest.subtract(sum);
         product.setAccRest(newRest);
-        productRepo.update(product);
+        productRepo.save(product);
 
         // Сформировать ответ
         return new PaymentRespDto(userId, productId, sum, oldRest, newRest);
