@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class ProductAccessDeniedException extends RuntimeException {
-    private Long userId;
-    private Long productId;
+    private final Long userId;
+    private final Long productId;
 
     public ProductAccessDeniedException(String message, Long userId, Long productId) {
         super(message);

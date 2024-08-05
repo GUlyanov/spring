@@ -1,4 +1,4 @@
-package ru.innotech.products.servicies;
+package ru.innotech.products.services;
 
 import ru.innotech.products.entities.User;
 
@@ -12,9 +12,7 @@ public interface UserService {
 
     Optional<User> findById(Long id);
 
-    void insert(User user);
-
-    void update(User user);
+    void save(User user);
 
     void delete(User user);
 

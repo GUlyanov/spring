@@ -1,4 +1,4 @@
-package ru.innotech.products.servicies;
+package ru.innotech.products.services;
 
 import org.springframework.stereotype.Service;
 import ru.innotech.products.entities.User;
@@ -11,8 +11,8 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
 
-    public UserServiceImpl(UserRepo userDao) {
-        this.userRepo = userDao;
+    public UserServiceImpl(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
     public Set<User> findAll() {
@@ -20,19 +20,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public Set<User> findByName(String userName) {
-        return userRepo.findByName(userName);
+        return userRepo.findByUserName(userName);
     }
 
     public Optional<User> findById(Long id) {
         return userRepo.findById(id);
     }
 
-    public void insert(User user) {
-        userRepo.insert(user);
-    }
-
-    public void update(User user) {
-        userRepo.update(user);
+    public void save(User user) {
+        userRepo.save(user);
     }
 
     public void delete(User user) {
@@ -41,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long userId) {
-        userRepo.delete(userId);
+        userRepo.deleteById(userId);
     }
 
     public void deleteAll() {

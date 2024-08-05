@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
-public class PaymentDto {
+public class PaymentRespDto {
     private Long userId;
     private Long productId;
     private BigDecimal sum;

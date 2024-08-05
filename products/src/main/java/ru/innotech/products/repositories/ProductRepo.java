@@ -1,24 +1,16 @@
 package ru.innotech.products.repositories;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import ru.innotech.products.entities.Product;
 
-import java.util.Optional;
 import java.util.Set;
 
-public interface ProductRepo {
-    Set<Product> getProductsByUserId(Long userId);
-
-    Optional<Product> getProductById(Long productId);
-
-    void insert(Product product, Long userId);
-
-    void update(Product product);
-
-    void delete(Product product);
-
-    void deleteAll();
+public interface ProductRepo extends CrudRepository<Product, Long> {
+    Set<Product> findByUserId(Long userId);
 
     Set<Product> findAll();
 
+    @Query("select p.user.id = ?1 from Product p where p.id = ?2")
     Boolean productIsAccessed(Long userId, Long productId);
 }

@@ -1,4 +1,4 @@
-package ru.innotech.jdbc;
+package ru.innotech.products;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -14,20 +14,26 @@ import ru.innotech.products.entities.Product;
 import ru.innotech.products.entities.ProductType;
 import ru.innotech.products.entities.User;
 import ru.innotech.products.exceptions.ProductByIdNotFoundException;
-import ru.innotech.products.servicies.ProductService;
+import ru.innotech.products.repositories.UserRepo;
+import ru.innotech.products.services.ProductService;
+import ru.innotech.products.repositories.ProductRepo;
 
 import java.math.BigDecimal;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UnitProdControllerTests.class)
 @ComponentScan
 public class UnitProdControllerTests {
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    UserRepo userRepo;
+    @MockBean
+    ProductRepo prodRepo;
 
     @MockBean
     ProductService prodServ;
@@ -46,7 +52,7 @@ public class UnitProdControllerTests {
         // Мокируем вызов сервиса продуктов
         when(prodServ.getProductById(prodId)).thenReturn(product);
         // Выполняем запрос к сервису
-        mockMvc.perform(get("/product/" + prodId))
+        mockMvc.perform(get("/products/" + prodId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expected));
     }
@@ -58,10 +64,10 @@ public class UnitProdControllerTests {
         Long userId = 6L;
         User user = new User(userId, "Теткин Ю.М.");
         ProductsDto productsDto = new ProductsDto();
-        Product product = new Product(17L, "407028107486723232310", BigDecimal.valueOf(100000.00), ProductType.ACCOUNT);
+        Product product = new Product(17L, "407028107486723232310", BigDecimal.valueOf(100000.00), ProductType.ACCOUNT, user);
         productsDto.addProductDto(product.toProductDto());
         user.addProduct(product);
-        product = new Product(18L, "67458793891", BigDecimal.valueOf(46723.54), ProductType.CARD);
+        product = new Product(18L, "67458793891", BigDecimal.valueOf(46723.54), ProductType.CARD, user);
         productsDto.addProductDto(product.toProductDto());
         user.addProduct(product);
         // Поготавливаем ожидаемый ответ
@@ -69,7 +75,7 @@ public class UnitProdControllerTests {
         // Мокируем вызов сервиса продуктов
         when(prodServ.getProductsByUserId(userId)).thenReturn(user.getProductSet());
         // Выполняем запрос к сервису
-        mockMvc.perform(get("/products/" + userId))
+        mockMvc.perform(get("/products/user/" + userId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expected));
     }
@@ -79,13 +85,13 @@ public class UnitProdControllerTests {
     public void TestProductByIdNotFoundEx() throws Exception {
         Long prodId = 3L;
         // Подготавливаем ожидаемый ответ
-        String expected = "Продукт с ид =  <" + prodId + "> не найден";
+        String expected = "10. Продукт с ид =  <" + prodId + "> не найден";
         // Мокируем вызов сервиса продуктов
         when(prodServ.getProductById(prodId)).thenThrow(new ProductByIdNotFoundException(null, prodId));
         // Выполняем запрос к сервису
-        mockMvc.perform(get("/product/" + prodId))
+        mockMvc.perform(get("/products/" + prodId))
                 .andExpect(status().is(404))
-                .andExpect(content().string(expected));
+                .andExpect(jsonPath("$.detail").value(expected));
     }
 
 }

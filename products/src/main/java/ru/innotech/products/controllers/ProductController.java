@@ -2,19 +2,20 @@ package ru.innotech.products.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.innotech.dtos.dto.PaymentDto;
+import ru.innotech.dtos.dto.PaymentReqDto;
+import ru.innotech.dtos.dto.PaymentRespDto;
 import ru.innotech.dtos.dto.ProductDto;
 import ru.innotech.dtos.dto.ProductsDto;
 import ru.innotech.products.entities.Product;
-import ru.innotech.products.servicies.ProductService;
+import ru.innotech.products.services.ProductService;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 @RestController("productController")
 @RequestMapping(path = "/products")
 public class ProductController {
     private final ProductService productService;
+
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -40,10 +41,8 @@ public class ProductController {
         return Product.createProductsDto(products);
     }
 
-    @PostMapping("/user/{userId}/product/{productId}/sum/{sum}")
-    public PaymentDto doPayment(@PathVariable Long userId,
-                                @PathVariable Long productId,
-                                @PathVariable BigDecimal sum){
-        return productService.doPayment(userId, productId, sum);
+    @PostMapping("/payment")
+    public PaymentRespDto doPayment(@RequestBody PaymentReqDto paymentReqDto) {
+        return productService.doPayment(paymentReqDto);
     }
 }

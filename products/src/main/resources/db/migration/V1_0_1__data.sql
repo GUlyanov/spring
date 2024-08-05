@@ -21,5 +21,5 @@ insert into products(userid, accnumber, accrest, prodtype)
     select us.id,  '407028107486723232310', 100000.00, 'ACCOUNT' from users us where   us.username = 'Теткин Ю.М.';
 insert into products(userid, accnumber, accrest, prodtype)
     select us.id,  '67458793891', 46723.54, 'CARD' from users us where   us.username = 'Теткин Ю.М.';
-commit;
+
 
